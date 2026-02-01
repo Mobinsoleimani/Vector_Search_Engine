@@ -6,8 +6,11 @@ def embedid_engine(text:str):
     embedding = model.encode(text)
     return embedding
 
-x = embedid_engine('i m happy')
 
+x = embedid_engine(str(input('add y0ur model')))
+
+
+print(x)
 with open("vector.txt",mode = 'w') as vector:
     vector.write(str(x))
     vector.close()
