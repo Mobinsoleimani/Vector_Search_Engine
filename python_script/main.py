@@ -1,22 +1,26 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import struct
 model = SentenceTransformer('all-MiniLM-L6-v2', device="cpu")
 
 def embedid_engine(text:str):
-    embedding = model.encode(text,convert_to_numpy=True)
-    return embedding.astype('float32')
+    vec = model.encode(
+        text,
+        convert_to_numpy=True,
+        normalize_embeddings=True
+    )
+    return vec.astype(np.float32)
 
-user_input = input('add y0ur model')
-embedding = embedid_engine(user_input)
+embedding = embedid_engine(input("add your model: "))
 
-
-print(embedding)
 file = 'vector.bin'
 
-with open(file,'ab') as b:
-    b.write(embedding.tobytes())
-    b.close()
+dim = embedding.shape[0]
+num = 1
 
+with open("vector.bin", "wb") as f:
+    f.write(struct.pack("ii", num, dim))
+    f.write(embedding.tobytes())
 with open("vector.txt",mode = 'w') as vector:
     vector.write(str(embedding))
     vector.close()
