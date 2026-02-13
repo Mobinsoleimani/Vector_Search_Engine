@@ -25,5 +25,5 @@ with open(file, "ab") as f:
     f.write(struct.pack("ii", num, dim))
     f.write(embedding.tobytes())
 with open("vector.txt",mode = 'a',encoding="utf-8") as vector:
-    vector.write(str(embedding))
+    vector.write(user_input)
     vector.close()
