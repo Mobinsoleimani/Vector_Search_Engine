@@ -12,9 +12,9 @@ def embedid_engine(text:str):
     )
     return vec.astype(np.float32)
 
-user_input=input("add your input text: ")
+data=input("add your input text: ")
 
-embedding = embedid_engine(user_input)
+embedding = embedid_engine(data)
 
 file = 'vector.bin'
 
@@ -22,8 +22,18 @@ dim = embedding.shape[0]
 num = 1
 file_exists = os.path.isfile(file)
 with open(file, "ab") as f:
-    f.write(struct.pack("ii", num, dim))
+    if not file_exists:
+        f.write(struct.pack("ii", 1, dim))
     f.write(embedding.tobytes())
 with open("vector.txt",mode = 'a',encoding="utf-8") as vector:
-    vector.write(user_input)
+    vector.write(data + "\n")
     vector.close()
+
+
+user_input = input("add your input query: ")
+
+embedding_query = embedid_engine(user_input)
+
+with open("query.bin",mode = 'wb') as query:
+    query.write(embedding_query.tobytes())
+    query.close()
