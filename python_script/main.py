@@ -34,6 +34,6 @@ user_input = input("add your input query: ")
 
 embedding_query = embedid_engine(user_input)
 
-with open("query.bin",mode = 'wb') as query:
+with open("/home/hello-world/mini_vector_search_engine/cpp_engine/query_test.bin",mode = 'wb') as query:
     query.write(embedding_query.tobytes())
     query.close()

@@ -2,14 +2,35 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <cmath>
+
 using namespace std;
 
+
+float dif_calcul(const vector <float> &A,const vector <float> &B){
+
+        float vec_dot = 0 ;
+        float vec_a_power = 0;
+        float vec_b_power =0 ;  
+
+        for (int i = 0;i <A.size(); i++){
+
+                vec_dot += A[i] * B[i];
+
+                vec_a_power += A[i] * A[i];
+
+                vec_b_power += B[i] * B[i];     
+
+        }
+
+        return vec_dot / (sqrt(vec_a_power) * sqrt(vec_b_power));
+}
 int main(){
 
 	//read bin file 
 	
 	ifstream file(
-        "/home/hello-world/mini_vector_search_engine/vector.bin",
+        "mini_vector_search_engine/vector.bin",
         ios::binary
     );
 	if (!file){
